@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voor Linda — Onze Dansreis · cadeau-editie</title>
+
+<meta name="theme-color" content="#f6d9e2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="application-name" content="Onze Dansreis">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
+<meta name="description" content="Persoonlijke Kizomba, Urban Kiz, Douceur en Konpa cursus voor Nicky en Linda.">
+<link rel="stylesheet" href="./base.css">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="stylesheet" href="./pwa.css">
+</head>
+<body>
+<div id="giftSplash" aria-hidden="true" role="button" aria-label="Sluit openingsafbeelding" title="Tik om verder te gaan" onclick="dismissSplash()">
+  <img src="./gift-splash.webp" alt="Linda — jouw verjaardagscadeau, Kizomba cursus vanuit huis">
+  <div class="splash-glow"></div>
+</div>
+
+<section id="authScreen" class="pwa-overlay auth-screen" aria-live="polite">
+  <div class="auth-card">
+    <div class="auth-icon"><img src="./icon-192.png" alt="Dansend paar"></div>
+    <div class="eyebrow">Onze Dansreis</div>
+    <h1 class="serif">Samen inloggen</h1>
+    <p>Gebruik je eigen e-mailadres en wachtwoord. Je blijft daarna ingelogd op dit toestel.</p>
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" onclick="setAuthMode('login')">Inloggen</button>
+      <button id="registerTab" onclick="setAuthMode('register')">Account maken</button>
+    </div>
+    <form id="authForm" onsubmit="submitAuth(event)">
+      <label>E-mailadres<input id="authEmail" type="email" autocomplete="email" required></label>
+      <label>Wachtwoord<input id="authPassword" type="password" minlength="6" autocomplete="current-password" required></label>
+      <button class="btn primary auth-submit" id="authSubmit" type="submit">Inloggen</button>
+    </form>
+    <div id="authMessage" class="form-message"></div>
+  </div>
+</section>
+
+<section id="coupleScreen" class="pwa-overlay couple-screen hidden-overlay" aria-live="polite">
+  <div class="auth-card couple-card">
+    <div class="eyebrow">Cloudsync</div>
+    <h1 class="serif">Maak dit van jullie samen</h1>
+    <p>De eerste van jullie maakt de gezamenlijke dansreis aan. De ander vult daarna dezelfde koppelcode in.</p>
+    <button class="btn primary" onclick="createDanceCouple()">Maak onze dansreis aan</button>
+    <div class="or-line"><span>of</span></div>
+    <label>Koppelcode<input id="coupleCodeInput" maxlength="12" autocomplete="off" placeholder="Bijv. A1B2C3D4"></label>
+    <button class="btn" onclick="joinDanceCouple()">Koppel mijn account</button>
+    <div id="coupleCreated" class="couple-created" hidden>
+      <div class="small">Jullie koppelcode</div>
+      <strong id="coupleCodeDisplay"></strong>
+      <button class="btn" onclick="copyCoupleCode()">Kopieer code</button>
+      <button class="btn primary" onclick="finishCoupleOnboarding()">Verder</button>
+    </div>
+    <div id="coupleMessage" class="form-message"></div>
+  </div>
+</section>
+
+<section id="giftWelcome" class="pwa-overlay gift-welcome hidden-overlay" aria-live="polite">
+  <article class="gift-letter">
+    <button class="gift-close" onclick="closeGiftWelcome()" aria-label="Sluiten">×</button>
+    <div class="eyebrow">Voor jou, schatje</div>
+    <h1 class="serif">Gefeliciteerd, mijn lieve schatje ❤️</h1>
+    <div class="gift-copy">
+      <p>Dit jaar is jouw jaar.</p>
+      <p>En ik had je natuurlijk het liefst de halve wereld cadeau gedaan. Alleen werkt mijn bankrekening daar op dit moment niet bepaald enthousiast aan mee. 😅<br>Dus moest ik iets anders verzinnen.</p>
+      <p>En eigenlijk ben ik daar achteraf heel blij om.</p>
+      <p>Want in plaats van iets te kopen, wilde ik iets voor je maken. Iets waar tijd, aandacht, liefde en vooral heel veel ons in zit.</p>
+      <p>Daarom krijg je van mij deze Kizomba-cursus. 💃🏽🕺🏽</p>
+      <p>Niet zomaar een verzameling filmpjes of lessen, maar iets dat ik speciaal voor ons heb samengesteld. Zodat we samen kunnen leren, oefenen, stuntelen, lachen, elkaar af en toe compleet verkeerd begrijpen tijdens een lead 😜… en uiteindelijk steeds mooier samen leren dansen.</p>
+      <p>Want dat vind ik misschien wel het mooiste aan dansen met jou: het gaat niet alleen om passen of techniek. Het gaat om voelen, vertrouwen, contact en samen bewegen.</p>
+      <p>Een beetje zoals wij eigenlijk.</p>
+      <p>Soms perfect synchroon.<br>Soms staat er eentje op de verkeerde voet.<br>Soms moeten we even opnieuw beginnen.<br>Maar uiteindelijk vinden we elkaar steeds weer terug. ❤️</p>
+      <p>Ik hoop dat deze cursus ons heel veel fijne avonden geeft. Dat we samen beter worden in Kizomba, Urban Kiz, Douceur, Konpa en alles wat we onderweg nog tegenkomen.</p>
+      <p>Maar vooral hoop ik dat dit weer één van die dingen wordt die echt van ons samen zijn.</p>
+      <p>Schatje, ik hou ontzettend veel van je.</p>
+      <p>Ik wens je een heel mooi jaar toe en ik hoop dat ik nog heel veel verjaardagen naast je mag staan — en heel veel dansvloeren met je mag delen.</p>
+      <p>Gefeliciteerd, mijn mopje. ❤️</p>
+      <p class="gift-ending">En nu…<br>muziek aan.<br>Kom eens hier.<br><strong>We gaan dansen. 💃🏽🕺🏽❤️</strong></p>
+    </div>
+    <button class="btn primary gift-open-button" onclick="acceptGiftWelcome()">Open onze dansreis ❤️</button>
+  </article>
+</section>
+
+<div class="shell" id="appShell" style="display:none">
+  <header class="topbar">
+    <div class="logo">
+      <div class="monogram app-icon-wrap"><img class="app-icon" src="./icon-192.png" alt="Dansend paar"></div>
+      <div><b class="serif">Onze Dansreis</b><small>dance • learn • together</small></div>
+    </div>
+    <button class="btn mode-home-btn" onclick="showDashboard()">← Dansreis</button>
+    <button class="btn toc-toggle" id="tocToggle" onclick="toggleToc()" aria-expanded="false">☰ Inhoudsopgave</button>
+    <button class="btn" onclick="showRepertoire()">♡ Repertoire</button>
+    <button class="btn gift-top-btn" onclick="showGiftWelcome(false)">♥ Cadeau</button>
+    <button class="btn social-top-btn" onclick="showSocial()">♫ Social</button>
+    <button class="btn logout-top-btn" onclick="logoutDanceApp()">Uitloggen</button>
+    <nav class="home-mode-nav">
+      <button onclick="showDashboard()">Overzicht</button>
+      <button onclick="goToLesson(0)">Start</button>
+      <button onclick="jumpPhase(2)">Urban Kiz</button>
+      <button onclick="jumpPhase(3)">Douceur</button>
+      <button onclick="jumpPhase(4)">Konpa</button>
+    </nav>
+    <div class="course-welcome">Cursusmodus · focus op de les</div>
+    <div class="grow"></div>
+    <div class="progress-mini">
+      <div class="small"><b id="progressText">0 / 28 lessen</b></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </header>
+
+  <section class="hero home-only">
+    <div class="hero-inner">
+      <div class="eyebrow">Meer dan dansen — het is wij</div>
+      <h1 class="serif">Voor Linda —<br>Onze Dansreis</h1>
+      <p>Een persoonlijke route door Urban Kiz, Douceur en Konpa. Technisch waar het moet, speels waar het kan — en vooral samen.</p>
+      <div class="cta">
+        <button class="btn primary" id="continueBtn" onclick="continueJourney()">▶ Start / ga verder</button>
+        <button class="btn" onclick="showDashboard()">♡ Bekijk de route</button>
+        <button class="btn" id="installPwaBtn" style="display:none" onclick="installDancePwa()">⇩ Installeer app</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats home-only">
+    <div class="stat"><b>28 lessen</b><span>eerste complete leerblok</span></div>
+    <div class="stat"><b>3 hoofdsporen</b><span>Urban Kiz • Douceur • Konpa</span></div>
+    <div class="stat"><b>9–12 weken</b><span>richtlijn, geen deadline</span></div>
+    <div class="stat"><b>Samen leren</b><span>Nicky bereidt voor • Linda voelt & volgt</span></div>
+  </div>
+
+  <div class="quote home-only">
+    <div class="script">Voor jou gemaakt, Linda</div>
+    <div>Omdat ik zo graag met je dans!</div>
+  </div>
+
+  <section id="dashboard" class="dashboard show home-only">
+    <div class="dashboard-grid">
+      <div class="dash-card"><h3>Urban Kiz</h3><p>Techniek, timing, technical steps en later tricks.</p><button class="btn" onclick="jumpPhase(2)">Open spoor</button></div>
+      <div class="dash-card"><h3>Douceur</h3><p>Flow, zachtheid, micro-movement, connectie en muzikaliteit.</p><button class="btn" onclick="jumpPhase(3)">Open spoor</button></div>
+      <div class="dash-card"><h3>Konpa</h3><p>Groove, figure 8, partnergevoel, footwork en Gouyad.</p><button class="btn" onclick="jumpPhase(4)">Open spoor</button></div>
+      <div class="dash-card"><h3>♫ Social</h3><p>Onze oefen- en socialmuziek per stijl, direct via Spotify.</p><button class="btn" onclick="showSocial()">Open Social</button></div>
+      <div class="dash-card"><h3>♡ Repertoire</h3><p>Alles wat we beheersen, favoriet vinden of zelf toevoegen.</p><button class="btn" onclick="showRepertoire()">Open repertoire</button></div>
+    </div>
+    <div class="panel" style="padding:24px">
+      <h2 class="serif" style="margin-top:0">De route</h2>
+      <p style="color:var(--muted)">Kort de basis opnieuw, daarna snel naar improver/intermediate. Klik een fase of les om te beginnen.</p>
+      <div id="phaseOverview" class="dashboard-grid"></div>
+    </div>
+  </section>
+
+  <section id="social" class="social-section">
+    <div class="social-head">
+      <div class="eyebrow">Samen dansen zonder lesmodus</div>
+      <h1>Social ♫</h1>
+      <p>Hier hoeft niets “af”. Kies een sfeer, zet Spotify aan en dans. De lijsten hieronder zijn bewust verschillend: technische Urban Kiz, zachtere Douceur/Microkiz, moderne en klassieke Konpa en een bredere Kizomba-mix.</p>
+    </div>
+    <div class="spotify-grid">
+      <article class="spotify-card"><h3>Urban Kiz — technical & social</h3><p>Urban Kiz en Tarraxo voor technical steps, timing, stops en vrij dansen.</p><iframe src="https://open.spotify.com/embed/playlist/3joGyTOgsGmJVAp8EKhGkZ?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><a class="spotify-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/3joGyTOgsGmJVAp8EKhGkZ">● Open in Spotify</a></article>
+      <article class="spotify-card"><h3>Douceur / Microkiz — slow & close</h3><p>Rustiger materiaal voor flow, connection, micro-movement, slow motion en Douceur.</p><iframe src="https://open.spotify.com/embed/playlist/0Pt4aIqbq6lyvBu2ul13PR?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><a class="spotify-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/0Pt4aIqbq6lyvBu2ul13PR">● Open in Spotify</a></article>
+      <article class="spotify-card"><h3>Konpa — modern & Gouyad</h3><p>Modernere Konpa/Gouyad voor groove, body movement en een wat steviger socialgevoel.</p><iframe src="https://open.spotify.com/embed/playlist/2KTRw8o3SVANOsnFsPSN8g?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><a class="spotify-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/2KTRw8o3SVANOsnFsPSN8g">● Open in Spotify</a></article>
+      <article class="spotify-card"><h3>Konpa — roots & classics</h3><p>Een klassiekere Konpa-selectie om ook de muzikale wortels en langere grooves te leren voelen.</p><iframe src="https://open.spotify.com/embed/playlist/3vOqwI6ymm8AfkMp1bmvMG?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><a class="spotify-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/3vOqwI6ymm8AfkMp1bmvMG">● Open in Spotify</a></article>
+      <article class="spotify-card"><h3>Kizomba — foundation & social</h3><p>Voor de foundation reset, close connection en gewoon samen Kizomba dansen.</p><iframe src="https://open.spotify.com/embed/playlist/1JzNg96xboBG1YVJp3YFee?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><a class="spotify-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/1JzNg96xboBG1YVJp3YFee">● Open in Spotify</a></article>
+      <article class="spotify-card"><h3>Brede Kizomba-mix</h3><p>Een grote mix met Kizomba, Semba, Tarraxinha, Ghetto Zouk en aanverwante stijlen — fijn voor een langere avond.</p><iframe src="https://open.spotify.com/embed/playlist/4n9lSo11bGAx2VEwIX3Kt6?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><a class="spotify-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/4n9lSo11bGAx2VEwIX3Kt6">● Open in Spotify</a></article>
+    </div>
+  </section>
+
+  <section id="repertoire" class="repertoire-section" style="display:none">
+    <div class="social-head"><div class="eyebrow">Van lessen naar onze eigen dans</div><h1>Ons repertoire ♡</h1><p>Beheerste lessen en favorieten verschijnen hier vanzelf. Eigen figuren, ideeën of combinaties kunnen we samen toevoegen.</p></div>
+    <div class="repertoire-layout">
+      <section class="panel repertoire-panel"><h2 class="serif">Uit de cursus</h2><div id="autoRepertoire" class="repertoire-grid"></div></section>
+      <section class="panel repertoire-panel">
+        <h2 class="serif">Zelf toegevoegd</h2>
+        <form class="repertoire-form" onsubmit="addRepertoireItem(event)">
+          <input id="repTitle" required placeholder="Naam van figuur / idee">
+          <select id="repStyle"><option>Urban Kiz</option><option>Douceur</option><option>Konpa</option><option>Kizomba / Fusion</option><option>Anders</option></select>
+          <select id="repType"><option>Technical</option><option>Trick</option><option>Combination</option><option>Musicality</option><option>Body movement</option><option>Anders</option></select>
+          <textarea id="repNotes" rows="2" placeholder="Notitie (optioneel)"></textarea>
+          <button class="btn primary" type="submit">+ Toevoegen</button>
+        </form>
+        <div id="manualRepertoire" class="repertoire-grid"></div>
+      </section>
+    </div>
+  </section>
+
+  <section id="course" class="layout toc-collapsed" style="display:none">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="content">
+      <article class="panel">
+        <div class="lesson-head"><div class="lesson-kicker" id="lessonPhase"></div><h2 id="lessonTitle"></h2><div class="tags" id="lessonTags"></div></div>
+        <div class="lesson-body">
+          <div id="media"></div>
+          <div class="source-card" id="sourceCard"></div>
+          <div class="grid2">
+            <section class="card"><h3>Voorbereiding Nicky</h3><div id="prep"></div></section>
+            <section class="card"><h3>Samen oefenen</h3><div id="practice"></div></section>
+          </div>
+          <div id="musicCard"></div>
+          <section class="lesson-state-panel" id="lessonStatePanel">
+            <div class="lesson-state-row">
+              <div><div class="state-label">Status van deze les</div><div class="status-switch" id="statusSwitch"><button type="button" data-status="new" onclick="setLessonStatus('new')">Nieuw</button><button type="button" data-status="practicing" onclick="setLessonStatus('practicing')">Oefenen</button><button type="button" data-status="mastered" onclick="setLessonStatus('mastered')">Beheerst</button></div></div>
+              <button class="favorite-button" id="favoriteBtn" type="button" onclick="toggleLessonFavorite()">♡ Favoriet</button>
+            </div>
+            <label class="note-label" for="lessonNote">Onze notitie</label>
+            <textarea id="lessonNote" class="lesson-note" rows="3" placeholder="Bijvoorbeeld: deze overgang nog rustiger leiden…"></textarea>
+            <div class="note-actions"><span id="noteSaveState" class="small">Wordt tussen jullie telefoons gesynchroniseerd.</span><button class="btn" type="button" onclick="saveLessonNote()">Notitie opslaan</button></div>
+          </section>
+          <div class="mastery"><strong>✓ Door wanneer</strong><div id="masteryText" style="margin-top:6px"></div></div>
+          <div class="actions"><button class="complete" id="completeBtn" onclick="setLessonStatus('mastered')">Markeer als beheerst</button><button class="btn" onclick="showDashboard()">Terug naar overzicht</button></div>
+          <div class="prevnext"><button id="prevBtn" onclick="prevLesson()">← Vorige</button><button id="nextBtn" onclick="nextLesson()">Volgende →</button></div>
+        </div>
+      </article>
+    </main>
+  </section>
+
+  <footer class="footer">N ♥ L · Urban Kiz · Douceur · Konpa · voortgang gesynchroniseerd tussen jullie telefoons</footer>
+</div>
+
+<script src="./course.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./cloud.js"></script>
+</body>
+</html>
